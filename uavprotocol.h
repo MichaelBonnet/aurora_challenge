@@ -18,26 +18,26 @@
 class UAVProtocol {
     private:
         // Initialization of common fields.
-        unsigned short int messageID;
-        unsigned char      senderID;
-        unsigned char      receiverID;
-        unsigned int       payloadLength;
-        char*              payload;
+        uint16_t messageID;
+        uint8_t  senderID;
+        uint8_t  receiverID;
+        uint32_t  payloadLength;
+        uint8_t * payload;
 
     public:
         // Access methods for each and every common field
-        unsigned short int get_messageID();
-        unsigned char      get_senderID();
-        unsigned char      get_receiverID();
-        unsigned int       get_payloadLength();
-        char*              get_payload();
+        uint16_t  get_messageID()     const;
+        uint8_t   get_senderID()      const;
+        uint8_t   get_receiverID()    const;
+        uint32_t  get_payloadLength() const;
+        uint8_t*  get_payload()       const;
 
         // A virtual Send function that returns a string containing the message to be send
-        virtual std::string Send();
+        virtual std::string Send() const;
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive();
+        virtual void Receive( const std::string message );
 
 };
 

@@ -21,22 +21,22 @@ class LCAMsg : public UAVProtocol {
         // Bit 7   is lights
         // Bit 6   is camera
         // Bit 0-5 is Action
-        unsigned char lights_camera_action;
-        unsigned int  name;
+        uint8_t  lights_camera_action;
+        uint64_t name;
 
     public:
         // Access method for each and every payload field
-        unsigned char get_lights();
-        unsigned char get_camera();
-        unsigned char get_action();
-        unsigned int  get_name();
+        uint8_t  get_lights() const;
+        uint8_t  get_camera() const;
+        uint8_t  get_action() const;
+        uint64_t get_name()   const;
 
-        // A SEnd function that returns a string containing the message to be sent
-        std::string Send();
+        // A Send function that returns a string containing the message to be sent
+        std::string Send() const;
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive();
+        void Receive(const std::string message) const;
 };
 
 #endif

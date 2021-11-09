@@ -1,5 +1,4 @@
 #include "lcamsg.h"
-#include "uavprotocol.h"
 
 #define LIGHTS_FLAG 0x80 // 1000 0000
 #define CAMERA_FLAG 0x40 // 0100 0000
@@ -9,22 +8,26 @@ LCAMsg::LCAMsg() {
 
 }
 
-unsigned char LCAMsg::get_lights() {
+uint8_t LCAMsg::get_lights() const {
     return lights_camera_action & LIGHTS_FLAG;
 }
 
-unsigned char LCAMsg::get_camera() {
+uint8_t LCAMsg::get_camera() const {
     return lights_camera_action & CAMERA_FLAG;
 }
 
-unsigned char LCAMsg::get_action() {
+uint8_t LCAMsg::get_action() const {
     return lights_camera_action & ACTION_FLAG;
 }
 
-std::string LCAMsg::Send() {
+uint64_t LCAMsg::get_name()  const {
+    return name;
+}
+
+std::string LCAMsg::Send() const {
 
 }
 
-void LCAMsg::Receive() {
+void LCAMsg::Receive(const std::string message) const {
 
 }

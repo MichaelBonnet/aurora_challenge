@@ -1,32 +1,32 @@
 #include "uavprotocol.h"
 
-unsigned short int UAVProtocol::get_messageID() {
+uint16_t UAVProtocol::get_messageID()     const {
 
 }
 
-unsigned char UAVProtocol::get_senderID() {
+uint8_t  UAVProtocol::get_senderID()      const {
 
 }
 
-unsigned char UAVProtocol::get_receiverID() {
+uint8_t  UAVProtocol::get_receiverID()    const {
 
 }
 
-unsigned int  UAVProtocol::get_payloadLength() {
+uint32_t UAVProtocol::get_payloadLength() const {
 
 }
 
-char* UAVProtocol::get_payload() {
+uint8_t * UAVProtocol::get_payload()      const {
 
 }
 
 // Virtual Send function that returns a string containing the message to be send
-std::string UAVProtocol::Send() {
+std::string UAVProtocol::Send() const {
 
 }
         
 // Virtual Receive function that acepts a string containing th message received,
 // and populates the values of the common fields
-void UAVProtocol::Receive() {
+void UAVProtocol::Receive( const std::string message ) {
 
 }
