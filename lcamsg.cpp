@@ -1,7 +1,7 @@
 #include "lcamsg.h"
 
 // TO DO
-// Make LCAMsg() and UAVProtocol() jive
+// Add base class stuff to LCAMsg
 // Write Send
 // Write Receive
 
@@ -10,16 +10,11 @@
 #define ACTION_FLAG 0x3F // 0011 1111
 
 // Constructor
-LCAMsg::LCAMsg( uint8_t lights_camera_action, uint64_t name ) {
-    lights_camera_action = lights_camera_action;
-    name = name;
-}
+LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 
+messageID(messageID), senderID{senderID}, receiverID{receiverID}, payloadLength{payloadLength}, payload{payload}, lights_camera_action{lights_camera_action}, name{name} { }
 
 // Copy Constructor
-LCAMsg::LCAMsg( const LCAMsg &obj ) {
-    lights_camera_action = obj.lights_camera_action;
-    name = obj.name;
-}
+LCAMsg::LCAMsg( const LCAMsg &obj ) : UAVProtocol( obj ), lights_camera_action{obj.lights_camera_action}, name{obj.name} { }
 
 LCAMsg::~LCAMsg() { }
 
@@ -40,6 +35,27 @@ uint64_t LCAMsg::get_name()  const {
 }
 
 std::string LCAMsg::Send() const {
+    int message = 0;
+    int shiftcount = 0;
+
+    // payload = (uint8_t*) malloc(payloadLength)
+
+    message |= messageID;
+    shiftcount += size_t(messageID);
+    message |= (senderID << shiftcount);
+    shiftcount += size_t(senderID);
+    message |= (receiverID << shiftcount);
+    shiftcount += size_t(receiverID);
+    message |= (payloadLength << shiftcount);
+    shiftcount += size_t(payloadLength);
+    message |= (lights_camera_action << shiftcount);
+    shiftcount += size_t(lights_camera_action);
+    message |= (name << shiftcount);
+    shiftcount += size_t(name);
+
+    std::string string_message = std::to_string(message);
+
+    return string_message;
 
 }
 
