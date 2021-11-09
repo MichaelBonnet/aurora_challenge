@@ -25,6 +25,11 @@ class UAVProtocol {
         uint8_t * payload;
 
     public:
+        // Rule of 3
+        UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength, uint8_t * payload );
+        UAVProtocol( const UAVProtocol &obj);
+        virtual ~UAVProtocol();
+
         // Access methods for each and every common field
         uint16_t  get_messageID()     const;
         uint8_t   get_senderID()      const;

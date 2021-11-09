@@ -25,6 +25,11 @@ class LCAMsg : public UAVProtocol {
         uint64_t name;
 
     public:
+        // Semi Rule of 3
+        LCAMsg( uint8_t lights_camera_action, uint64_t name );
+        LCAMsg( const LCAMsg &obj );
+        ~LCAMsg();
+
         // Access method for each and every payload field
         uint8_t  get_lights() const;
         uint8_t  get_camera() const;
