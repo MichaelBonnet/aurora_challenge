@@ -1,7 +1,6 @@
 #include "lcamsg.h"
 
 // TO DO
-// Redefinition error for default constructor between lcamsg.h and lcamsg.cpp
 // Test Send
 // Test Receive
 // Figure out how to manage the Payload field for the base class
@@ -16,7 +15,8 @@
 #define UINT64_FLAG 0xFFFFFFFFFFFFFFFF
 
 // Constructor
-LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : UAVProtocol( messageID, senderID, receiverID, payloadLength, payload ), lights_camera_action(lights_camera_action), name(name) { }
+LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 
+    UAVProtocol( messageID, senderID, receiverID, payloadLength, payload ), lights_camera_action(lights_camera_action), name(name) { }
 
 // Copy Constructor
 LCAMsg::LCAMsg( const LCAMsg &obj ) : UAVProtocol( obj ), lights_camera_action(obj.lights_camera_action), name(obj.name) { }
