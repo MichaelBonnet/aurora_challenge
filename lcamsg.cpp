@@ -5,15 +5,6 @@
 // Test Receive
 // Figure out how to manage the Payload field for the base class
 
-#define LIGHTS_FLAG 0x80 // 1000 0000
-#define CAMERA_FLAG 0x40 // 0100 0000
-#define ACTION_FLAG 0x3F // 0011 1111
-
-#define UINT8_FLAG  0xFF
-#define UINT16_FLAG 0xFFFF
-#define UINT32_FLAG 0xFFFFFFFF
-#define UINT64_FLAG 0xFFFFFFFFFFFFFFFF
-
 // Constructor
 LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 
     UAVProtocol( messageID, senderID, receiverID, payloadLength, payload ), lights_camera_action(lights_camera_action), name(name) { }
@@ -112,9 +103,12 @@ void LCAMsg::Receive(const std::string message) const {
     uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
     shiftcount = 0;
 
-    msg_payload |= msg_lights_camera_action;
-    shiftcount += size_t(msg_lights_camera_action);
-    msg_payload |= (msg_name << shiftcount);
+    *msg_payload = 0 | msg_lights_camera_action;
+    msg_payload += 1;
+    for (int i=1; i<msg_payloadLength; i++) {
+        *msg_payload = (msg_name & (BYTE_0_TO_7_64 >> (sizeof(uint8_t)*(i-1))) ) >> (size_t(msg_name) - sizeof(uint8_t)*(msg_payloadLength-i));
+        msg_payload += 1;
+    }
 
     LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_payload, msg_lights_camera_action, msg_name);
 
