@@ -41,7 +41,7 @@ uint8_t LCAMsg::get_lights_camera_action() const {
     return lights_camera_action;
 }
 
-uint64_t LCAMsg::get_name()  const {
+uint64_t LCAMsg::get_name() const {
     return name;
 }
 
@@ -109,6 +109,13 @@ void LCAMsg::Receive(const std::string message) const {
     // Extract name
     uint64_t msg_name = (msg >> shiftcount) & UINT64_FLAG;
 
-    // LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_lights_camera_action, msg_name);
+    uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
+    shiftcount = 0;
+
+    msg_payload |= msg_lights_camera_action;
+    shiftcount += size_t(msg_lights_camera_action);
+    msg_payload |= (msg_name << shiftcount);
+
+    LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_payload, msg_lights_camera_action, msg_name);
 
 }

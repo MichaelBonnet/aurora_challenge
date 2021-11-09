@@ -16,15 +16,15 @@ messageID(obj.messageID), senderID(obj.senderID), receiverID(obj.receiverID), pa
 // (Virtual) Destructor
 UAVProtocol::~UAVProtocol() { }
 
-uint16_t UAVProtocol::get_messageID()     const {
+uint16_t UAVProtocol::get_messageID() const {
     return messageID;
 }
 
-uint8_t  UAVProtocol::get_senderID()      const {
+uint8_t  UAVProtocol::get_senderID() const {
     return senderID;
 }
 
-uint8_t  UAVProtocol::get_receiverID()    const {
+uint8_t  UAVProtocol::get_receiverID() const {
     return receiverID;
 }
 
@@ -32,7 +32,7 @@ uint32_t UAVProtocol::get_payloadLength() const {
     return payloadLength;
 }
 
-uint8_t * UAVProtocol::get_payload()      const {
+uint8_t * UAVProtocol::get_payload() const {
     return payload;
 }
 
