@@ -10,6 +10,9 @@
 #define __LCAMSG_H
 
 #include <string>
+#include <iostream>
+#include <stdlib.h>
+#include <stdint.h>
 #include "uavprotocol.h"
 
 // The class should have the following features:
@@ -26,7 +29,8 @@ class LCAMsg : public UAVProtocol {
 
     public:
         // Semi Rule of 3
-        LCAMsg( uint8_t lights_camera_action, uint64_t name );
+        // LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : UAVProtocol( messageID, senderID, receiverID, payloadLength, payload );
+        LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name );
         LCAMsg( const LCAMsg &obj );
         ~LCAMsg();
 
@@ -34,6 +38,7 @@ class LCAMsg : public UAVProtocol {
         uint8_t  get_lights() const;
         uint8_t  get_camera() const;
         uint8_t  get_action() const;
+        uint8_t  get_lights_camera_action() const;
         uint64_t get_name()   const;
 
         // A Send function that returns a string containing the message to be sent

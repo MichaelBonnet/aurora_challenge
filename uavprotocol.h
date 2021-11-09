@@ -11,6 +11,7 @@
 #define __UAVPROTOCOL_H
 
 #include <string>
+#include <iostream>
 
 // Implement a C++ class that can be used as the base class to develop specific messages later.
 // This class should have the following features:
