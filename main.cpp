@@ -10,13 +10,6 @@
 //      The code should be agnostic to endianness.
 
 int main(int argc, char const *argv[]) {
-    uint8_t* payloadsend = create_lca_payload(0b1100111, 0xFFFFFFFFFFFFFFFF);
-    uint8_t* payloadreceive = create_lca_payload(0b1100111, 0xFFFFFFFFFFFFFFFF);
-
-    LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0xFFFFFFFFFFFFFFFF);
-    LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
-
-    std::string message = sender->Send();
-    std::cout << message;
-    receiver->Receive(message);
+    // unit_test_1();
+    unit_test_2();
 }
