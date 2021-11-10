@@ -56,6 +56,20 @@ std::string LCAMsg::Send() const {
     // Pack payloadLength
     message |= (get_payloadLength() << shiftcount);
     shiftcount += size_t(get_payloadLength());
+    // std::cout << "size_t(payloadLength): " << size_t(get_payloadLength()) << std::endl;
+    // std::cout << "sizeof(payloadLength): " << sizeof(get_payloadLength()) << std::endl;
+
+    // need to deconstruct the payload from the pointer
+    // uint payload_verbose  = 0;
+    // int payload_shiftcount = 0;
+    uint8_t * payload_ptr = get_payload();
+    for (int i=0; i<get_payloadLength(); i++) {
+        message |= ( payload_ptr[i] << shiftcount );
+        shiftcount += 8;
+    }
+
+    // message |= (payload_verbose << shiftcount);
+    // shiftcount += payload_shiftcount;
     
     // Pack lights_camera_action
     message |= (get_lights_camera_action() << shiftcount);
