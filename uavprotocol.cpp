@@ -1,10 +1,5 @@
 #include "uavprotocol.h"
 
-// TO DO
-// Make LCAMsg() and UAVProtocol() jive
-// Write Send
-// Write Receive
-
 // Constructor
 UAVProtocol::UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength, uint8_t * payload ) : 
     messageID(messageID), senderID(senderID), receiverID(receiverID), payloadLength(payloadLength), payload(payload) { }
