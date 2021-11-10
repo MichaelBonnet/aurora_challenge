@@ -64,7 +64,7 @@ class LCAMsg : public UAVProtocol {
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive(const std::string message) const;
+        void Receive( const std::string message ) const;
 };
 
 #endif

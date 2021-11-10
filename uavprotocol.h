@@ -39,11 +39,11 @@ class UAVProtocol {
         uint8_t*  get_payload()       const;
 
         // A virtual Send function that returns a string containing the message to be send
-        virtual std::string Send() const;
+        virtual std::string Send() const = 0;
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( const std::string message );
+        virtual void Receive( const std::string message ) const = 0;
 
 };
 
