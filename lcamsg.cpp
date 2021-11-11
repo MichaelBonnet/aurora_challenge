@@ -1,9 +1,7 @@
 #include "lcamsg.h"
 
 // TO DO
-// Test Send
-// Test Receive
-// Figure out how to manage the Payload field for the base class
+// Resolve stoi() going out of range issue for unit_test_1()
 
 // Constructor
 LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 
@@ -44,30 +42,18 @@ std::string LCAMsg::Send() const {
     // Pack messageID
     message |= get_messageID();
     shiftcount += sizeof(get_messageID())*8;
-    // std::cout << "get_messageID()  : " << get_messageID() << std::endl;
-    // std::cout << "size_t(messageID): " << size_t(get_messageID()) << std::endl;
-    // std::cout << "sizeof(messageID): " << sizeof(get_messageID()) << std::endl;
     
     // Pack senderID
     message |= (get_senderID() << shiftcount);
     shiftcount += sizeof(get_senderID())*8;
-    // std::cout << "get_senderID()  : " << get_senderID() << std::endl;
-    // std::cout << "size_t(senderID): " << size_t(get_senderID()) << std::endl;
-    // std::cout << "sizeof(senderID): " << sizeof(get_senderID()) << std::endl;
     
     // Pack receiverID
     message |= (get_receiverID() << shiftcount);
     shiftcount += sizeof(get_receiverID())*8;
-    // std::cout << "get_receiverID()  : " << get_receiverID() << std::endl;
-    // std::cout << "size_t(receiverID): " << size_t(get_receiverID()) << std::endl;
-    // std::cout << "sizeof(receiverID): " << sizeof(get_receiverID()) << std::endl;
     
     // Pack payloadLength
     message |= (get_payloadLength() << shiftcount);
     shiftcount += sizeof(get_payloadLength())*8;
-    // std::cout << "get_payloadLength()  : " << get_payloadLength() << std::endl;
-    // std::cout << "size_t(payloadLength): " << size_t(get_payloadLength()) << std::endl;
-    // std::cout << "sizeof(payloadLength): " << sizeof(get_payloadLength()) << std::endl;
 
     // need to deconstruct the payload from the pointer
     uint8_t * payload_ptr = get_payload();
@@ -75,9 +61,6 @@ std::string LCAMsg::Send() const {
         message |= ( payload_ptr[i] << shiftcount );
         shiftcount += 8;
     }
-
-    // message |= (payload_verbose << shiftcount);
-    // shiftcount += payload_shiftcount;
     
     // Pack lights_camera_action
     message |= (get_lights_camera_action() << shiftcount);
@@ -90,10 +73,7 @@ std::string LCAMsg::Send() const {
     // Convert to string, then return that string
     std::string string_message = std::to_string(message);
 
-    // std::cout << "Just Sent: 0x" << std::hex << stoi(string_message) << std::endl;
-    // std::cout << "just sent  : " << string_message << std::endl;
     return string_message;
-
 }
 
 // Receive method
@@ -135,13 +115,10 @@ void LCAMsg::Receive(const std::string message) const {
     // Create new instance out of the info we've extracted
     LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_payload, msg_lights_camera_action, msg_name);
 
-    // std::cout << "Received Message: " << "0x" << std::hex << stoi(msg_->Send()) << std::endl;
-    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(this->Send()) << std::endl;
     std::string msg_message = msg_->Send();
     std::cout << "Receiving 1: " << msg_->Send() << std::endl;
     for (std::size_t i = 0; i < msg_message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(msg_message.c_str()[i]);
     }
     std::cout << std::endl;
@@ -149,10 +126,7 @@ void LCAMsg::Receive(const std::string message) const {
     std::string same_message = this->Send();
     for (std::size_t i = 0; i < same_message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(same_message.c_str()[i]);
     }
     std::cout << std::endl;
-
-    // std::cout << "Received Message: " << "0b" << std::bitset<sizeof(msg_payloadLength)*16>(stoi(msg_->Send())) << std::endl;
 }

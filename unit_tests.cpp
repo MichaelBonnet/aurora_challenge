@@ -20,10 +20,6 @@ uint8_t* create_lca_payload(uint8_t lights_camera_action, uint64_t name) {
         uint8_t  reduced_segment = segment >> 8*(i-1);
         lca_payload[i] = reduced_segment;
     }
-
-    // for (int i=0; i<payloadlength; i++){
-    //     std::cout << i << "th payload segment is " << std::bitset<8>(lca_payload[i])  << std::endl;
-    // }
     
     return lca_payload;
 }
@@ -39,35 +35,16 @@ void unit_test_1() {
 
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0xFFFFFFFFFFFFFFFF);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
-
-    // std::stringstream stream;
-
-    // uint8_t* retrieved_payload = sender->get_payload();
-    // for (int i=0; i<sizeof(payloadsend); i++) {
-    //     std::cout << retrieved_payload[i] << std::endl;
-    //     // std::cout << i << "th payload element is " << 
-    // }
-    // std::string payloads( stream.str() );
-    // std::cout << "payload is" << payloads << std::endl;
     
     std::string message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
     for (std::size_t i = 0; i < message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(message.c_str()[i]);
     }
     std::cout << std::endl;
     receiver->Receive(message);
-    // LCAMsg received = LCAMsg(msg_);
-
-    // std::string message = sender->Send();
-    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(message) << std::endl;
-    // std::cout << "Sent     Message: " << "0b" << std::bitset<sizeof(payloadsend)>(stoi(message)) << std::endl;
-    // std::string result( stream.str() );
-    // std::cout << result;
-    // receiver->Receive(message);
 }
 
 void unit_test_2() {
@@ -81,35 +58,17 @@ void unit_test_2() {
 
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x5555555555555555);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x5555555555555555);
-
-    // std::stringstream stream;
-
-    // uint8_t* retrieved_payload = sender->get_payload();
-    // for (int i=0; i<sizeof(payloadsend); i++) {
-    //     std::cout << retrieved_payload[i] << std::endl;
-    //     // std::cout << i << "th payload element is " << 
-    // }
-    // std::string payloads( stream.str() );
-    // std::cout << "payload is" << payloads << std::endl;
     
     std::string message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
     for (std::size_t i = 0; i < message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(message.c_str()[i]);
     }
     std::cout << std::endl;
     receiver->Receive(message);
-    // LCAMsg received = LCAMsg(msg_);
 
-    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(message) << std::endl;
-    // std::cout << "Sent     Message: " << "0b" << std::bitset<sizeof(payloadsend)*8>(stoi(message)) << std::endl;
-    // std::cout << "0b" << std::bitset<sizeof(payloadsend)>(stoi(message)) << std::endl;
-    // std::string result( stream.str() );
-    // std::cout << result;
-    // receiver->Receive(message);
 }
 
 void unit_test_3() {
@@ -123,35 +82,16 @@ void unit_test_3() {
 
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x0000000000000000);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x0000000000000000);
-
-    // std::stringstream stream;
-
-    // uint8_t* retrieved_payload = sender->get_payload();
-    // for (int i=0; i<sizeof(payloadsend); i++) {
-    //     std::cout << retrieved_payload[i] << std::endl;
-    //     // std::cout << i << "th payload element is " << 
-    // }
-    // std::string payloads( stream.str() );
-    // std::cout << "payload is" << payloads << std::endl;
     
     std::string message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
     for (std::size_t i = 0; i < message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(message.c_str()[i]);
     }
     std::cout << std::endl;
     receiver->Receive(message);
-    // LCAMsg received = LCAMsg(msg_);
-
-    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(message) << std::endl;
-    // std::cout << "Sent     Message: " << "0b" << std::bitset<sizeof(payloadsend)*8>(stoi(message)) << std::endl;
-    // std::cout << "0b" << std::bitset<sizeof(payloadsend)>(stoi(message)) << std::endl;
-    // std::string result( stream.str() );
-    // std::cout << result;
-    // receiver->Receive(message);
 }
 
 void unit_test_4() {
@@ -165,33 +105,14 @@ void unit_test_4() {
 
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x0000000000000000);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x000000000000000F);
-
-    // std::stringstream stream;
-
-    // uint8_t* retrieved_payload = sender->get_payload();
-    // for (int i=0; i<sizeof(payloadsend); i++) {
-    //     std::cout << retrieved_payload[i] << std::endl;
-    //     // std::cout << i << "th payload element is " << 
-    // }
-    // std::string payloads( stream.str() );
-    // std::cout << "payload is" << payloads << std::endl;
     
     std::string message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
     for (std::size_t i = 0; i < message.size(); ++i)
     {
-        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
         std::cout << std::bitset<8>(message.c_str()[i]);
     }
     std::cout << std::endl;
     receiver->Receive(message);
-    // LCAMsg received = LCAMsg(msg_);
-
-    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(message) << std::endl;
-    // std::cout << "Sent     Message: " << "0b" << std::bitset<sizeof(payloadsend)*8>(stoi(message)) << std::endl;
-    // std::cout << "0b" << std::bitset<sizeof(payloadsend)>(stoi(message)) << std::endl;
-    // std::string result( stream.str() );
-    // std::cout << result;
-    // receiver->Receive(message);
 }

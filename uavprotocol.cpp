@@ -30,10 +30,3 @@ uint32_t UAVProtocol::get_payloadLength() const {
 uint8_t * UAVProtocol::get_payload() const {
     return payload;  // keep in mind this is a pointer
 }
-
-// Virtual Send function that returns a string containing the message to be send
-// std::string UAVProtocol::Send() const = 0; // const = 0 // { }
-        
-// Virtual Receive function that acepts a string containing th message received,
-// and populates the values of the common fields
-// void UAVProtocol::Receive( const std::string message ) = 0; // { }
