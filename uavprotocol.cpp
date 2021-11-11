@@ -28,7 +28,7 @@ uint32_t UAVProtocol::get_payloadLength() const {
 }
 
 uint8_t * UAVProtocol::get_payload() const {
-    return payload;
+    return payload;  // keep in mind this is a pointer
 }
 
 // Virtual Send function that returns a string containing the message to be send

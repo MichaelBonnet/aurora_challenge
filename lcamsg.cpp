@@ -43,25 +43,33 @@ std::string LCAMsg::Send() const {
 
     // Pack messageID
     message |= get_messageID();
-    shiftcount += size_t(get_messageID());
+    shiftcount += sizeof(get_messageID())*8;
+    // std::cout << "get_messageID()  : " << get_messageID() << std::endl;
+    // std::cout << "size_t(messageID): " << size_t(get_messageID()) << std::endl;
+    // std::cout << "sizeof(messageID): " << sizeof(get_messageID()) << std::endl;
     
     // Pack senderID
     message |= (get_senderID() << shiftcount);
-    shiftcount += size_t(get_senderID());
+    shiftcount += sizeof(get_senderID())*8;
+    // std::cout << "get_senderID()  : " << get_senderID() << std::endl;
+    // std::cout << "size_t(senderID): " << size_t(get_senderID()) << std::endl;
+    // std::cout << "sizeof(senderID): " << sizeof(get_senderID()) << std::endl;
     
     // Pack receiverID
     message |= (get_receiverID() << shiftcount);
-    shiftcount += size_t(get_receiverID());
+    shiftcount += sizeof(get_receiverID())*8;
+    // std::cout << "get_receiverID()  : " << get_receiverID() << std::endl;
+    // std::cout << "size_t(receiverID): " << size_t(get_receiverID()) << std::endl;
+    // std::cout << "sizeof(receiverID): " << sizeof(get_receiverID()) << std::endl;
     
     // Pack payloadLength
     message |= (get_payloadLength() << shiftcount);
-    shiftcount += size_t(get_payloadLength());
+    shiftcount += sizeof(get_payloadLength())*8;
+    // std::cout << "get_payloadLength()  : " << get_payloadLength() << std::endl;
     // std::cout << "size_t(payloadLength): " << size_t(get_payloadLength()) << std::endl;
     // std::cout << "sizeof(payloadLength): " << sizeof(get_payloadLength()) << std::endl;
 
     // need to deconstruct the payload from the pointer
-    // uint payload_verbose  = 0;
-    // int payload_shiftcount = 0;
     uint8_t * payload_ptr = get_payload();
     for (int i=0; i<get_payloadLength(); i++) {
         message |= ( payload_ptr[i] << shiftcount );
@@ -73,16 +81,17 @@ std::string LCAMsg::Send() const {
     
     // Pack lights_camera_action
     message |= (get_lights_camera_action() << shiftcount);
-    shiftcount += size_t(get_lights_camera_action());
+    shiftcount += sizeof(get_lights_camera_action())*8;
     
     // Pack name
     message |= (get_name() << shiftcount);
-    shiftcount += size_t(get_name());
+    shiftcount += sizeof(get_name())*8;
 
     // Convert to string, then return that string
     std::string string_message = std::to_string(message);
 
-    std::cout << "Just Sent: 0x" << std::hex << stoi(string_message) << std::endl;
+    // std::cout << "Just Sent: 0x" << std::hex << stoi(string_message) << std::endl;
+    // std::cout << "just sent  : " << string_message << std::endl;
     return string_message;
 
 }
@@ -94,53 +103,56 @@ void LCAMsg::Receive(const std::string message) const {
 
     // Extract messageID
     uint16_t msg_messageID = msg & UINT16_FLAG;
-    shiftcount += size_t(UINT16_FLAG);
+    shiftcount += sizeof(msg_messageID)*8;
     
     // Extract senderiD
     uint8_t msg_senderID = (msg << shiftcount) & UINT8_FLAG;
-    shiftcount += size_t(UINT8_FLAG);
+    shiftcount += sizeof(msg_senderID)*8;
     
     // Extract receiverID
     uint8_t msg_receiverID = (msg << shiftcount) & UINT8_FLAG;
-    shiftcount += size_t(UINT8_FLAG);
+    shiftcount += sizeof(msg_receiverID)*8;
     
     // Extract payloadLength
     uint32_t msg_payloadLength = (msg << shiftcount) & UINT32_FLAG;
-    shiftcount += size_t(UINT32_FLAG);
+    shiftcount += sizeof(msg_payloadLength)*8;
+
+    // Extract payload
+    int payloadlength = msg_payloadLength;
+    uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
+    for (int i=0; i<payloadlength; i++) {
+        msg_payload[i] = (msg << shiftcount) & UINT8_FLAG;
+        shiftcount += 8;
+    }
     
     // Extract lights_camera_action
     uint8_t msg_lights_camera_action = (msg << shiftcount) & UINT8_FLAG;
-    shiftcount += size_t(UINT8_FLAG);
+    shiftcount += sizeof(msg_lights_camera_action)*8;
     
     // Extract name
     uint64_t msg_name = (msg << shiftcount) & UINT64_FLAG;
 
-    uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
-    shiftcount = 0;
+    // Create new instance out of the info we've extracted
+    LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_payload, msg_lights_camera_action, msg_name);
 
-    // *msg_payload = 0 | msg_lights_camera_action;
-    // msg_payload += 1;
-    // for (int i=1; i<msg_payloadLength; i++) {
-    //     *msg_payload = (msg_name & (BYTE_0_TO_7_64 >> (sizeof(uint8_t)*(i-1))) ) >> (size_t(msg_name) - sizeof(uint8_t)*(msg_payloadLength-i));
-    //     msg_payload += 1;
-    // }
-
-    int payloadlength = sizeof(msg_lights_camera_action)+sizeof(msg_name);
-    uint8_t * lca_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
-    lca_payload[0] = 0 | msg_lights_camera_action;
-    uint64_t bitmask = 0x00000000000000FF;
-
-    for (int i=1; i<payloadlength; i++) {
-        uint64_t segment = name & (bitmask << 8*(i-1));
-        uint8_t  reduced_segment = segment >> 8*(i-1);
-        lca_payload[i] = reduced_segment;
-    }
-
-    LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, lca_payload, msg_lights_camera_action, msg_name);
-    // std::cout << msg_->Send();
     // std::cout << "Received Message: " << "0x" << std::hex << stoi(msg_->Send()) << std::endl;
+    // std::cout << "Sent     Message: " << "0x" << std::hex << stoi(this->Send()) << std::endl;
+    std::string msg_message = msg_->Send();
+    std::cout << "Receiving 1: " << msg_->Send() << std::endl;
+    for (std::size_t i = 0; i < msg_message.size(); ++i)
+    {
+        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
+        std::cout << std::bitset<8>(msg_message.c_str()[i]);
+    }
+    std::cout << std::endl;
+    std::cout << "Sending   1: " << this->Send() << std::endl;
+    std::string same_message = this->Send();
+    for (std::size_t i = 0; i < same_message.size(); ++i)
+    {
+        // std::cout << std::bitset<8>(message.c_str()[i]) << std::endl;
+        std::cout << std::bitset<8>(same_message.c_str()[i]);
+    }
+    std::cout << std::endl;
 
-    std::cout << "Received Message: " << "0x" << std::hex << stoi(msg_->Send()) << std::endl;
-    std::cout << "Sent     Message: " << "0x" << std::hex << stoi(this->Send()) << std::endl;
     // std::cout << "Received Message: " << "0b" << std::bitset<sizeof(msg_payloadLength)*16>(stoi(msg_->Send())) << std::endl;
 }
