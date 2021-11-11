@@ -2,6 +2,7 @@
 
 // TO DO
 // Resolve stoi() going out of range issue for unit_test_1()
+// for reference: https://www.tutorialspoint.com/unix_sockets/network_byte_orders.htm
 
 // Constructor
 LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 

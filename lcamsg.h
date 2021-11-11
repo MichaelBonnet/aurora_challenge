@@ -13,6 +13,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
 #include "uavprotocol.h"
 
 #define LIGHTS_FLAG 0x80 // 1000 0000
