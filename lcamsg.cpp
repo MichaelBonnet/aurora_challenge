@@ -41,23 +41,27 @@ std::string LCAMsg::Send() const {
     int shiftcount = 0;
 
     // Pack messageID
-    uint8_t messageID = htons( get_messageID() );
-    message |= messageID;
+    // uint8_t messageID = htons( get_messageID() );
+    // message |= messageID;
+    message |= get_messageID();
     shiftcount += sizeof(get_messageID())*8;
     
     // Pack senderID
-    uint8_t senderID = htons( get_senderID() );
-    message |= (senderID << shiftcount);
+    // uint8_t senderID = htons( get_senderID() );
+    // message |= (senderID << shiftcount);
+    message |= (get_senderID() << shiftcount);
     shiftcount += sizeof(get_senderID())*8;
     
     // Pack receiverID
-    uint8_t receiverID = htons( get_receiverID() );
-    message |= (receiverID << shiftcount);
+    // uint8_t receiverID = htons( get_receiverID() );
+    // message |= (receiverID << shiftcount);
+    message |= (get_receiverID() << shiftcount);
     shiftcount += sizeof(get_receiverID())*8;
     
     // Pack payloadLength
-    uint32_t payloadLength = htonl( get_payloadLength() );
-    message |= (payloadLength << shiftcount);
+    // uint32_t payloadLength = htonl( get_payloadLength() );
+    // message |= (payloadLength << shiftcount);
+    message |= (get_payloadLength() << shiftcount);
     shiftcount += sizeof(get_payloadLength())*8;
 
     // need to deconstruct the payload from the pointer
@@ -68,13 +72,15 @@ std::string LCAMsg::Send() const {
     }
     
     // Pack lights_camera_action
-    uint8_t lights_camera_action = htons( get_lights_camera_action() );
-    message |= (lights_camera_action << shiftcount);
+    // uint8_t lights_camera_action = htons( get_lights_camera_action() );
+    // message |= (lights_camera_action << shiftcount);
+    message |= (get_lights_camera_action() << shiftcount);
     shiftcount += sizeof(get_lights_camera_action())*8;
     
     // Pack name
-    uint64_t name = htonl( get_name() );
-    message |= (name << shiftcount);
+    // uint64_t name = htonl( get_name() );
+    // message |= (name << shiftcount);
+    message |= (get_name() << shiftcount);
     shiftcount += sizeof(get_name())*8;
 
     // Convert to string, then return that string
