@@ -40,34 +40,40 @@ std::string LCAMsg::Send() const {
     int shiftcount = 0;
 
     // Pack messageID
-    message |= get_messageID();
+    uint8_t messageID = htons( get_messageID() );
+    message |= messageID;
     shiftcount += sizeof(get_messageID())*8;
     
     // Pack senderID
-    message |= (get_senderID() << shiftcount);
+    uint8_t senderID = htons( get_senderID() );
+    message |= (senderID << shiftcount);
     shiftcount += sizeof(get_senderID())*8;
     
     // Pack receiverID
-    message |= (get_receiverID() << shiftcount);
+    uint8_t receiverID = htons( get_receiverID() );
+    message |= (receiverID << shiftcount);
     shiftcount += sizeof(get_receiverID())*8;
     
     // Pack payloadLength
-    message |= (get_payloadLength() << shiftcount);
+    uint32_t payloadLength = htonl( get_payloadLength() );
+    message |= (payloadLength << shiftcount);
     shiftcount += sizeof(get_payloadLength())*8;
 
     // need to deconstruct the payload from the pointer
     uint8_t * payload_ptr = get_payload();
     for (int i=0; i<get_payloadLength(); i++) {
-        message |= ( payload_ptr[i] << shiftcount );
+        message |= ( htons( payload_ptr[i] ) << shiftcount );
         shiftcount += 8;
     }
     
     // Pack lights_camera_action
-    message |= (get_lights_camera_action() << shiftcount);
+    uint8_t lights_camera_action = htons( get_lights_camera_action() );
+    message |= (lights_camera_action << shiftcount);
     shiftcount += sizeof(get_lights_camera_action())*8;
     
     // Pack name
-    message |= (get_name() << shiftcount);
+    uint64_t name = htonl( get_name() );
+    message |= (name << shiftcount);
     shiftcount += sizeof(get_name())*8;
 
     // Convert to string, then return that string
