@@ -69,9 +69,15 @@ std::string LCAMsg::Send() const {
     message |= (get_payloadLength() << shiftcount);
     shiftcount += sizeof(get_payloadLength())*8;
 
+    // std::cout << "segfault checkpoint pre payload deconstruction" << std::endl;
+
     // need to deconstruct the payload from the pointer
     uint8_t * payload_ptr = get_payload();
+
+    std::cout << "segfault checkpoint post pointer creation" << std::endl;
+    std::cout << "get_payloadlength() result is " << get_payloadLength() << std::endl;
     for (int i=0; i<get_payloadLength(); i++) {
+        // std::cout << "segfault checkpoint pre iteration " << i <<std::endl;
         message |= ( htons( payload_ptr[i] ) << shiftcount );
         shiftcount += 8;
     }
@@ -228,7 +234,7 @@ void LCAMsg::Receive(const std::string message) const {
     // LCAMsg msg__ = 
 
 
-    // std::cout << "\npre  msg_->Send()\n";
+    std::cout << "segfault checkpoint 0" << std::endl;
     std::string msg_message = msg_->Send();
     // std::cout << "\npost msg_->Send()\n";
 

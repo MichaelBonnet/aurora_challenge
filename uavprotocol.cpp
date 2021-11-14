@@ -15,11 +15,11 @@ uint16_t UAVProtocol::get_messageID() const {
     return messageID;
 }
 
-uint8_t  UAVProtocol::get_senderID() const {
+uint8_t UAVProtocol::get_senderID() const {
     return senderID;
 }
 
-uint8_t  UAVProtocol::get_receiverID() const {
+uint8_t UAVProtocol::get_receiverID() const {
     return receiverID;
 }
 

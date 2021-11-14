@@ -118,14 +118,19 @@ void unit_test_2() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x5555555555555555);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x5555555555555555);
     
+    std::cout << "MessageID     (expected 1): " << sender->get_messageID() << std::endl;
+    std::cout << "senderID      (expected 1): " << sender->get_senderID() << std::endl;
+    std::cout << "receiverID    (expected 2): " << sender->get_receiverID() << std::endl;
+    std::cout << "payloadLength (expected 9): " << sender->get_payloadLength() << std::endl;
+
     std::string message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
-    for (std::size_t i = 0; i < message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     receiver->Receive(message);
 }
 
