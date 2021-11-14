@@ -1,7 +1,8 @@
 #include "lcamsg.h"
 
 // TO DO
-// Resolve stoi() going out of range issue for unit_test_1()
+// Resolve segfaulting due to weird get_payload() things going on
+// Network byte order everything
 // for reference: https://www.tutorialspoint.com/unix_sockets/network_byte_orders.htm
 
 // #define htonll(x) ((((uint64_t)htonl(x)) << 32) + htonl((x) >> 32))
@@ -41,7 +42,7 @@ uint64_t LCAMsg::get_name() const {
 }
 
 // Send method
-std::string LCAMsg::Send() const {
+uint LCAMsg::Send() const {
     uint message = 0;
     int shiftcount = 0;
 
@@ -74,7 +75,7 @@ std::string LCAMsg::Send() const {
     // need to deconstruct the payload from the pointer
     uint8_t * payload_ptr = get_payload();
 
-    std::cout << "segfault checkpoint post pointer creation" << std::endl;
+    // std::cout << "segfault checkpoint post pointer creation" << std::endl;
     std::cout << "get_payloadlength() result is " << get_payloadLength() << std::endl;
     for (int i=0; i<get_payloadLength(); i++) {
         // std::cout << "segfault checkpoint pre iteration " << i <<std::endl;
@@ -95,14 +96,14 @@ std::string LCAMsg::Send() const {
     shiftcount += sizeof(get_name())*8;
 
     // Convert to string, then return that string
-    std::string string_message = std::to_string(message);
+    // std::string string_message = std::to_string(message);
     // std::cout << "sizeof(string_message) is " << sizeof(string_message) << std::endl;
 
-    return string_message;
+    return message;
 }
 
 // Receive method
-void LCAMsg::Receive(const std::string message) const {
+void LCAMsg::Receive(const uint message) const {
     // std::cout << "one line before Receive()'s std::stoi()" << std::endl;
     // std::string temp = "A";
     // std::cout << "sizeof(temp)    is " << sizeof(temp) << std::endl;
@@ -190,7 +191,8 @@ void LCAMsg::Receive(const std::string message) const {
     // === CURRENT ===
     // ===============
 
-    uint msg = std::stoll(message);   // confirmed that the issue is here
+    // uint msg = std::stoll(message);   // confirmed that the issue is here
+    uint msg = message;
     // std::cout << "msg is " << msg << std::endl;
     int shiftcount = 0;
 
@@ -234,21 +236,21 @@ void LCAMsg::Receive(const std::string message) const {
     // LCAMsg msg__ = 
 
 
-    std::cout << "segfault checkpoint 0" << std::endl;
-    std::string msg_message = msg_->Send();
+    // std::cout << "segfault checkpoint 0" << std::endl;
+    uint msg_message = msg_->Send();
     // std::cout << "\npost msg_->Send()\n";
 
     std::cout << "S Receiving: " << msg_->Send() << std::endl;
-    for (std::size_t i = 0; i < msg_message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(msg_message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < msg_message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(msg_message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     std::cout << "R Sending  : " << this->Send() << std::endl;
-    std::string same_message = this->Send();
-    for (std::size_t i = 0; i < same_message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(same_message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // std::string same_message = this->Send();
+    // for (std::size_t i = 0; i < same_message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(same_message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
 }

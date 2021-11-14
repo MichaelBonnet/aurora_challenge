@@ -59,17 +59,17 @@ void unit_test_0() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0xFFFFFFFFFFFFFFFF);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
     
-    std::string message = sender->Send();
-    std::cout << "Sending     : " << message << std::endl;
-    std::cout << "Msg Length  : " << message.length() << std::endl;
+    uint message = sender->Send();
+    // std::cout << "Sending     : " << message << std::endl;
+    // std::cout << "Msg Length  : " << message.length() << std::endl;
 
-    std::string params = message.substr(0, 9);
-    std::string payload = message.substr(9, std::string::npos);
-    std::cout << "payload is: " << std::bitset<8*sizeof(stoi(payload))>(stoi(payload)) << std::endl;
-    std::cout << "sizeof(0xFFFFFFFFFFFFFFFF) is: " << sizeof(0xFFFFFFFFFFFFFFFF) << std::endl;
+    // std::string params = message.substr(0, 9);
+    // std::string payload = message.substr(9, std::string::npos);
+    // std::cout << "payload is: " << std::bitset<8*sizeof(stoi(payload))>(stoi(payload)) << std::endl;
+    // std::cout << "sizeof(0xFFFFFFFFFFFFFFFF) is: " << sizeof(0xFFFFFFFFFFFFFFFF) << std::endl;
 
-    std::cout << "Msg params  : " << params << std::endl;
-    std::cout << "Msg payload : " << payload << std::endl;
+    // std::cout << "Msg params  : " << params << std::endl;
+    // std::cout << "Msg payload : " << payload << std::endl;
 
 
 }
@@ -86,7 +86,7 @@ void unit_test_1() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend,    0b11001111, 0xFFFFFFFFFFFFFFFF);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
     
-    std::string message = sender->Send();
+    uint message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
     // std::cout << "Msg size (bytes)  : " << message.size() << std::endl;
     // std::cout << "Msg size (bits)   : " << message.size()*8 << std::endl;
@@ -98,11 +98,11 @@ void unit_test_1() {
     // std::cout << "Str2 size (bytes) : " << str2.size() << std::endl;
     // std::cout << "Str2 size (bits)  : " << str2.size()*8 << std::endl;
 
-    for (std::size_t i = 0; i < message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     receiver->Receive(message);
 }
 
@@ -118,12 +118,12 @@ void unit_test_2() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x5555555555555555);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x5555555555555555);
     
-    std::cout << "MessageID     (expected 1): " << sender->get_messageID() << std::endl;
-    std::cout << "senderID      (expected 1): " << sender->get_senderID() << std::endl;
-    std::cout << "receiverID    (expected 2): " << sender->get_receiverID() << std::endl;
-    std::cout << "payloadLength (expected 9): " << sender->get_payloadLength() << std::endl;
+    // std::cout << "MessageID     (expected 1): " << sender->get_messageID() << std::endl;
+    // std::cout << "senderID      (expected 1): " << sender->get_senderID() << std::endl;
+    // std::cout << "receiverID    (expected 2): " << sender->get_receiverID() << std::endl;
+    // std::cout << "payloadLength (expected 9): " << sender->get_payloadLength() << std::endl;
 
-    std::string message = sender->Send();
+    uint message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
     // for (std::size_t i = 0; i < message.size(); ++i)
@@ -146,14 +146,14 @@ void unit_test_3() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x0000000000000000);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x0000000000000000);
     
-    std::string message = sender->Send();
+    uint message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
-    for (std::size_t i = 0; i < message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     receiver->Receive(message);
 }
 
@@ -169,17 +169,17 @@ void unit_test_4() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x0000000000000000);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x000000000000000F);
     
-    std::string message = sender->Send();
+    uint message = sender->Send();
     std::cout << "S Sending  : " << message << std::endl;
-    std::string r_message = receiver->Send();
+    uint r_message = receiver->Send();
     std::cout << "R Sending  : " << r_message << std::endl;
 
 
-    for (std::size_t i = 0; i < message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     receiver->Receive(message);
 }
 
@@ -195,13 +195,13 @@ void unit_test_5() {
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend, 0b11001111, 0x0000000000000000);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x000000000000000F);
     
-    std::string message = sender->Send();
+    uint message = sender->Send();
     std::cout << "Sending    : " << message << std::endl;
 
-    for (std::size_t i = 0; i < message.size(); ++i)
-    {
-        std::cout << std::bitset<8>(message.c_str()[i]);
-    }
-    std::cout << std::endl;
+    // for (std::size_t i = 0; i < message.size(); ++i)
+    // {
+    //     std::cout << std::bitset<8>(message.c_str()[i]);
+    // }
+    // std::cout << std::endl;
     receiver->Receive(message);
 }
