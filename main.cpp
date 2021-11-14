@@ -3,7 +3,9 @@
 #include "unit_tests.h"
 
 // TO DO
-// Resolve stoi() going out of range issue for unit_test_1()
+// Resolve segfaulting due to weird get_payload() things going on
+// Network byte order everything
+// for reference: https://www.tutorialspoint.com/unix_sockets/network_byte_orders.htm
 
 // Please assume that:
 // - All messages are sent and received as a stream of binary data,
