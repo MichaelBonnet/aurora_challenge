@@ -8,6 +8,9 @@
 uint8_t* create_lca_payload(uint8_t lights_camera_action, uint64_t name);
 
 // 
+void unit_test_0();
+
+// 
 void unit_test_1();
 
 // 
