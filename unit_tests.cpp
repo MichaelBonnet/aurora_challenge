@@ -13,6 +13,8 @@
 // Use your engineering judgment on the scope of your test cases.
 // A text print-out should be produced for the result of each test case.
 
+
+// Creates a lights_camera_action payload with that variable and the name
 uint8_t* create_lca_payload(uint8_t lights_camera_action, uint64_t name) {
     int payloadlength = sizeof(lights_camera_action)+sizeof(name);
     uint8_t * lca_payload = (uint8_t*) malloc(sizeof(uint8_t)*payloadlength);

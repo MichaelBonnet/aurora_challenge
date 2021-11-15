@@ -75,7 +75,7 @@ uint LCAMsg::Send() const {
 
     std::cout << "get_payloadlength() result is " << get_payloadLength() << std::endl;
     for (int i=0; i<get_payloadLength(); i++) {
-        message |= ( htons( payload_ptr[i] ) << shiftcount );
+        message |= ( payload_ptr[i] << shiftcount );
         shiftcount += 8;
     }
     
@@ -98,6 +98,8 @@ uint LCAMsg::Send() const {
 void LCAMsg::Receive(const uint message) const {
 
     uint msg = message;
+    std::cout << "sizeof(msg) is " << sizeof(msg) << std::endl;
+    std::cout << "size_t(msg) is " << size_t(msg) << std::endl;
     int shiftcount = 0;
 
     // Extract messageID
@@ -117,7 +119,8 @@ void LCAMsg::Receive(const uint message) const {
     shiftcount += sizeof(msg_payloadLength)*8;
 
     // Extract payload
-    int payloadlength = msg_payloadLength;
+    uint32_t payloadlength = msg_payloadLength;
+    std::cout << "msg_payloadLength is " << msg_payloadLength << std::endl;
     uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
     for (int i=0; i<payloadlength; i++) {
         msg_payload[i] = (msg << shiftcount) & UINT8_FLAG;
