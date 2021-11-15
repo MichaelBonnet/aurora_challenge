@@ -74,6 +74,7 @@ uint LCAMsg::Send() const {
     uint8_t * payload_ptr = get_payload();
 
     std::cout << "get_payloadlength() result is " << get_payloadLength() << std::endl;
+    // std::cout << "just before segfaulting code" << std::endl;
     for (int i=0; i<get_payloadLength(); i++) {
         message |= ( payload_ptr[i] << shiftcount );
         shiftcount += 8;
@@ -98,8 +99,8 @@ uint LCAMsg::Send() const {
 void LCAMsg::Receive(const uint message) const {
 
     uint msg = message;
-    std::cout << "sizeof(msg) is " << sizeof(msg) << std::endl;
-    std::cout << "size_t(msg) is " << size_t(msg) << std::endl;
+    // std::cout << "sizeof(msg) is " << sizeof(msg) << std::endl;
+    // std::cout << "size_t(msg) is " << size_t(msg) << std::endl;
     int shiftcount = 0;
 
     // Extract messageID
@@ -121,11 +122,13 @@ void LCAMsg::Receive(const uint message) const {
     // Extract payload
     uint32_t payloadlength = msg_payloadLength;
     std::cout << "msg_payloadLength is " << msg_payloadLength << std::endl;
+    std::cout << "just before segfault" << std::endl;
     uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
     for (int i=0; i<payloadlength; i++) {
         msg_payload[i] = (msg << shiftcount) & UINT8_FLAG;
         shiftcount += 8;
     }
+    std::cout << "just after segfault" << std::endl;
 
     // Extract lights_camera_action
     uint8_t msg_lights_camera_action = (msg << shiftcount) & UINT8_FLAG;
@@ -142,6 +145,6 @@ void LCAMsg::Receive(const uint message) const {
     uint msg_message = msg_->Send();
     // std::cout << "\npost msg_->Send()\n";
 
-    std::cout << "S Receiving: " << msg_->Send() << std::endl;
-    std::cout << "R Sending  : " << this->Send() << std::endl;
+    std::cout << "ReceivED Message Send Call : " << msg_->Send() << std::endl;
+    std::cout << "ReceivER Message Send Call : " << this->Send() << std::endl;
 }

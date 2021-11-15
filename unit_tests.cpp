@@ -71,7 +71,7 @@ void unit_test_1() {
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
     
     uint message = sender->Send();
-    std::cout << "Sending    : " << message << std::endl;
+    std::cout << "Sent Message Send Call    : " << message << std::endl;
 
     receiver->Receive(message);
 }
@@ -89,7 +89,7 @@ void unit_test_2() {
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x5555555555555555);
 
     uint message = sender->Send();
-    std::cout << "Sending    : " << message << std::endl;
+    std::cout << "Sent Message Send Call    : " << message << std::endl;
 
     receiver->Receive(message);
 }
@@ -107,7 +107,7 @@ void unit_test_3() {
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x0000000000000000);
     
     uint message = sender->Send();
-    std::cout << "Sending    : " << message << std::endl;
+    std::cout << "Sent Message Send Call    : " << message << std::endl;
 
     receiver->Receive(message);
 }
@@ -145,7 +145,7 @@ void unit_test_5() {
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0x000000000000000F);
     
     uint message = sender->Send();
-    std::cout << "Sending    : " << message << std::endl;
+    std::cout << "Sent Message Send Call    : " << message << std::endl;
 
     receiver->Receive(message);
 }
