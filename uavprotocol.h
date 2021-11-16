@@ -19,9 +19,9 @@
 class UAVProtocol {
     private:
         // Initialization of common fields.
-        uint16_t messageID;
-        uint8_t  senderID;
-        uint8_t  receiverID;
+        uint16_t  messageID;
+        uint8_t   senderID;
+        uint8_t   receiverID;
         uint32_t  payloadLength;
         uint8_t * payload;
 
@@ -36,14 +36,17 @@ class UAVProtocol {
         uint8_t   get_senderID()      const;
         uint8_t   get_receiverID()    const;
         uint32_t  get_payloadLength() const;
-        uint8_t*  get_payload()       const;
+        uint8_t * get_payload()       const;
+
+        // virtual size getter to define mallocing in send/receive
+        virtual uint8_t get_size();
 
         // A virtual Send function that returns a string containing the message to be send
-        virtual std::string Send() const = 0;
+        virtual uint8_t * Send() = 0;
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( const std::string message ) const = 0;
+        virtual void Receive( uint8_t * message ) = 0;
 
 };
 

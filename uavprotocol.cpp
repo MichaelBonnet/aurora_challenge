@@ -15,11 +15,11 @@ uint16_t UAVProtocol::get_messageID() const {
     return messageID;
 }
 
-uint8_t  UAVProtocol::get_senderID() const {
+uint8_t UAVProtocol::get_senderID() const {
     return senderID;
 }
 
-uint8_t  UAVProtocol::get_receiverID() const {
+uint8_t UAVProtocol::get_receiverID() const {
     return receiverID;
 }
 
@@ -28,12 +28,16 @@ uint32_t UAVProtocol::get_payloadLength() const {
 }
 
 uint8_t * UAVProtocol::get_payload() const {
-    return payload;
+    return payload;  // keep in mind this is a pointer
 }
 
-// Virtual Send function that returns a string containing the message to be send
-// std::string UAVProtocol::Send() const = 0; // const = 0 // { }
-        
-// Virtual Receive function that acepts a string containing th message received,
-// and populates the values of the common fields
-// void UAVProtocol::Receive( const std::string message ) = 0; // { }
+uint8_t UAVProtocol::get_size() {
+    uint8_t size = sizeof( get_payloadLength() ) + 
+                   sizeof( get_payloadLength() ) + 
+                   sizeof( get_messageID()     ) + 
+                   sizeof( get_senderID()      ) + 
+                   sizeof( get_receiverID()    );
+    
+    std::cout << "size is " << size << std::endl;
+    return size;
+}
