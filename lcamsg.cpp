@@ -107,7 +107,7 @@ uint LCAMsg::Send() const {
     // shiftcount += sizeof(get_name())*8;
 
     std::cout << "shiftcount after   packing is " << shiftcount << std::endl;
-    std::cout << "in binary: " << std::bitset<208>(message) << std::endl;
+    // std::cout << "in binary: " << std::bitset<208>(message) << std::endl;
 
     return message;
 }
