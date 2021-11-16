@@ -30,3 +30,14 @@ uint32_t UAVProtocol::get_payloadLength() const {
 uint8_t * UAVProtocol::get_payload() const {
     return payload;  // keep in mind this is a pointer
 }
+
+uint8_t UAVProtocol::get_size() {
+    uint8_t size = sizeof( get_payloadLength() ) + 
+                   sizeof( get_payloadLength() ) + 
+                   sizeof( get_messageID()     ) + 
+                   sizeof( get_senderID()      ) + 
+                   sizeof( get_receiverID()    );
+    
+    std::cout << "size is " << size << std::endl;
+    return size;
+}

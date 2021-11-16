@@ -16,23 +16,14 @@
 #include <stdio.h>
 #include "uavprotocol.h"
 
-#define LIGHTS_FLAG 0x80 // 1000 0000
-#define CAMERA_FLAG 0x40 // 0100 0000
-#define ACTION_FLAG 0x3F // 0011 1111
+#define LIGHTS_FLAG 0b10000000 // 1000 0000
+#define CAMERA_FLAG 0b01000000 // 0100 0000
+#define ACTION_FLAG 0b00111111 // 0011 1111
 
 #define UINT8_FLAG  0xFF
 #define UINT16_FLAG 0xFFFF
 #define UINT32_FLAG 0xFFFFFFFF
 #define UINT64_FLAG 0xFFFFFFFFFFFFFFFF
-
-#define BYTE_0_TO_7_64   0xFF00000000000000
-// #define BYTE_8_TO_15_64  0x00FF000000000000
-// #define BYTE_16_TO_23_64 0x0000FF0000000000
-// #define BYTE_24_TO_31_64 0x000000FF00000000
-// #define BYTE_32_TO_39_64 0x00000000FF000000
-// #define BYTE_40_TO_47_64 0x0000000000FF0000
-// #define BYTE_48_TO_55_64 0x000000000000FF00
-#define BYTE_55_TO_63_64 0x00000000000000FF
 
 // The class should have the following features:
 
@@ -60,12 +51,15 @@ class LCAMsg : public UAVProtocol {
         uint8_t  get_lights_camera_action() const;
         uint64_t get_name()   const;
 
+        // size getter to define mallocing in send/receive
+        // uint8_t get_size();
+
         // A Send function that returns a string containing the message to be sent
-        uint Send() const;
+        uint8_t * Send();
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive( const uint message ) const;
+        void Receive( uint8_t * message );
 };
 
 #endif

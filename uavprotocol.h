@@ -38,12 +38,15 @@ class UAVProtocol {
         uint32_t  get_payloadLength() const;
         uint8_t * get_payload()       const;
 
+        // virtual size getter to define mallocing in send/receive
+        virtual uint8_t get_size();
+
         // A virtual Send function that returns a string containing the message to be send
-        virtual uint Send() const = 0;
+        virtual uint8_t * Send() = 0;
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( const uint message ) const = 0;
+        virtual void Receive( uint8_t * message ) = 0;
 
 };
 
