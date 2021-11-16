@@ -12,7 +12,12 @@
 
 // Constructor
 LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : 
-    UAVProtocol( messageID, senderID, receiverID, payloadLength, payload ), lights_camera_action(lights_camera_action), name(name) { }
+    UAVProtocol( messageID, senderID, receiverID, payloadLength, payload ), lights_camera_action(lights_camera_action), name(name) { 
+        // std::cout << "Derived Constructor messageID     is " << messageID << std::endl;
+        // std::cout << "Derived Constructor senderID      is " << senderID << std::endl;
+        // std::cout << "Derived Constructor receiverID    is " << receiverID << std::endl;
+        // std::cout << "Derived Constructor payloadLength is " << payloadLength << std::endl;
+    }
 
 // Copy Constructor
 LCAMsg::LCAMsg( const LCAMsg &obj ) : UAVProtocol( obj ), lights_camera_action(obj.lights_camera_action), name(obj.name) { }
@@ -59,47 +64,51 @@ uint8_t * LCAMsg::Send() {
     uint16_t messageID = htons( get_messageID() );
     memcpy( message, &messageID, sizeof(uint16_t) );
     message += sizeof(uint16_t);
-    std::cout << "Sent messageID                    is " << messageID << std::endl;
+    std::cout << "Sent messageID                    is " << ntohs( messageID ) << std::endl;
     
     // Pack senderID
     uint8_t senderID = get_senderID();
     memcpy( message, &senderID, sizeof(uint8_t) );
     message += sizeof(uint8_t);
-    std::cout << "Sent sender                       is " << messageID << std::endl;
+    std::cout << "Sent sender                       is " << senderID << std::endl;
     
     // Pack receiverID
     uint8_t receiverID = get_receiverID();
     memcpy( message, &receiverID, sizeof(uint8_t) );
     message += sizeof(uint8_t);
-    std::cout << "Sent receiverID                   is " << messageID << std::endl;
+    std::cout << "Sent receiverID                   is " << receiverID << std::endl;
     
     // Pack payloadLength
     uint32_t payloadLength = htonl( get_payloadLength() );
     memcpy( message, &payloadLength, sizeof(uint32_t) );
     message += sizeof(uint32_t);
-    std::cout << "Sent payloadLength                is " << messageID << std::endl;
+    std::cout << "Sent payloadLength                is " << ntohl( payloadLength ) << std::endl;
 
     // need to deconstruct the payload from the pointer
     uint8_t * payload_ptr = get_payload();
 
-    std::cout << "get_payloadlength() result        is " << get_payloadLength() << std::endl;
+    // std::cout << "get_payloadlength() result (htonl) is " << htonl( get_payloadLength() ) << std::endl;
+    // std::cout << "get_payloadlength() result         is " << get_payloadLength() << std::endl;
     // for (int i=0; i<get_payloadLength(); i++) {
-    for (int i=0; i<9; i++) {
+    // int payloadpackingiterations = 0;
+    for (int i=0; i<ntohl( payloadLength ); i++) {
         memcpy( message, &payload_ptr[i], sizeof(uint8_t) );
         message += sizeof(uint8_t);
+        // payloadpackingiterations++;
     }
+    // std::cout << "payloadpackingiterations is " << payloadpackingiterations << std::endl;
     
     // Pack lights_camera_action
     uint8_t lights_camera_action = get_lights_camera_action();
     memcpy( message, &lights_camera_action, sizeof(uint8_t) );
     message += sizeof(uint8_t);
-    std::cout << "Sent lights_camera_action         is " << messageID << std::endl;
+    std::cout << "Sent lights_camera_action         is " << unsigned( lights_camera_action ) << std::endl;
     
     // Pack name
     uint64_t name = htonll( get_name() );
     memcpy( message, &name, sizeof(uint64_t) );
     message += sizeof(uint64_t);
-    std::cout << "Sent name                         is " << messageID << std::endl;
+    std::cout << "Sent name                         is " << ntohll( name ) << std::endl;
 
     std::cout << "EXIT  SEND()" << std::endl;
 
@@ -149,13 +158,13 @@ void LCAMsg::Receive( uint8_t * message ) {
     uint8_t msg_lights_camera_action;
     memcpy(&msg_lights_camera_action, msg, sizeof(uint8_t));
     msg += sizeof(uint8_t);
-    std::cout << "Received msg_lights_camera_action is " << msg_payloadLength << std::endl;
+    std::cout << "Received msg_lights_camera_action is " << msg_lights_camera_action << std::endl;
     
     // Extract name
     uint64_t msg_name;
     memcpy(&msg_name, msg, sizeof(uint64_t));
     msg += sizeof(uint64_t);
-    std::cout << "Received msg_name                 is " << msg_payloadLength << std::endl;
+    std::cout << "Received msg_name                 is " << msg_name << std::endl;
 
     // Create new instance out of the info we've extracted
     LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_payload, msg_lights_camera_action, msg_name);

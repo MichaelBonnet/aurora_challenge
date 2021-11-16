@@ -58,14 +58,38 @@ uint8_t* create_lca_payload(uint8_t lights_camera_action, uint64_t name) {
 //     uint message = sender->Send();
 // }
 
+void unit_test_0() {
+    std::cout << "\n" << "===========================" << std::endl;
+    std::cout <<         "======= UNIT TEST 0 =======" << std::endl;
+    std::cout <<         "===========================" << "\n" << std::endl;
+    
+    uint8_t* payloadsend    = create_lca_payload(0b11000111, 0xFFFFFFFFFFFFFFFF);
+    uint8_t* payloadreceive = create_lca_payload(0b11000111, 0xFFFFFFFFFFFFFFFF);
+
+    // uint16_t send_messageID
+
+    UAVProtocol *sender   = new UAVProtocol(1, 1, 2, 9, payloadsend    );
+    UAVProtocol *receiver = new UAVProtocol(1, 1, 2, 9, payloadreceive );
+
+    std::cout << "sender messageID     is " << sender->get_messageID() << std::endl;
+    std::cout << "sender senderID      is " << +( sender->get_senderID()   ) << std::endl;
+    std::cout << "sender receiverID    is " << unsigned( sender->get_receiverID() ) << std::endl;
+    std::cout << "sender payloadLength is " << sender->get_payloadLength() << std::endl;
+    // std::cout << "sender size          is " << sender->get_size() << std::endl;
+    // std::cout << "sender lca           is " << sender->get_lights_camera_action() << std::endl;
+    // std::cout << "sender lights        is " << sender->get_lights() << std::endl;
+    // std::cout << "sender camera        is " << sender->get_camera() << std::endl;
+    // std::cout << "sender action        is " << sender->get_action() << std::endl;
+}
+
 void unit_test_1() {
     
     std::cout << "\n" << "===========================" << std::endl;
     std::cout <<         "======= UNIT TEST 1 =======" << std::endl;
     std::cout <<         "===========================" << "\n" << std::endl;
     
-    uint8_t* payloadsend    = create_lca_payload(0b11000111, 0xFFFFFFFFFFFFFFFF);
-    uint8_t* payloadreceive = create_lca_payload(0b11000111, 0xFFFFFFFFFFFFFFFF);
+    uint8_t* payloadsend    = create_lca_payload(0b11001111, 0xFFFFFFFFFFFFFFFF);
+    uint8_t* payloadreceive = create_lca_payload(0b11001111, 0xFFFFFFFFFFFFFFFF);
 
     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, payloadsend,    0b11001111, 0xFFFFFFFFFFFFFFFF);
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
@@ -74,7 +98,7 @@ void unit_test_1() {
     std::cout << "sender senderID      is " << sender->get_senderID() << std::endl;
     std::cout << "sender receiverID    is " << sender->get_receiverID() << std::endl;
     std::cout << "sender payloadLength is " << sender->get_payloadLength() << std::endl;
-    std::cout << "sender size          is " << sender->get_size() << std::endl;
+    // std::cout << "sender size          is " << sender->get_size() << std::endl;
     std::cout << "sender lca           is " << sender->get_lights_camera_action() << std::endl;
     std::cout << "sender lights        is " << sender->get_lights() << std::endl;
     std::cout << "sender camera        is " << sender->get_camera() << std::endl;

@@ -2,7 +2,12 @@
 
 // Constructor
 UAVProtocol::UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength, uint8_t * payload ) : 
-    messageID(messageID), senderID(senderID), receiverID(receiverID), payloadLength(payloadLength), payload(payload) { }
+    messageID(messageID), senderID(senderID), receiverID(receiverID), payloadLength(payloadLength), payload(payload) {
+        // std::cout << "Base Constructor messageID     is " << messageID << std::endl;
+        // std::cout << "Base Constructor senderID      is " << +senderID << std::endl;
+        // std::cout << "Base Constructor receiverID    is " << +receiverID << std::endl;
+        // std::cout << "Base Constructor payloadLength is " << payloadLength << std::endl;
+    }
 
 // Copy Constructor
 UAVProtocol::UAVProtocol( const UAVProtocol &obj ) : 
