@@ -59,14 +59,14 @@ uint LCAMsg::Send() const {
     // shiftcount += sizeof(get_messageID())*8;
     
     // Pack senderID
-    uint8_t senderID = htons( get_senderID() );
+    uint8_t senderID = get_senderID();
     message |= (senderID << shiftcount);
     shiftcount += sizeof(senderID)*8;
     // message |= (get_senderID() << shiftcount);
     // shiftcount += sizeof(get_senderID())*8;
     
     // Pack receiverID
-    uint8_t receiverID = htons( get_receiverID() );
+    uint8_t receiverID = get_receiverID();
     message |= (receiverID << shiftcount);
     shiftcount += sizeof(receiverID)*8;
     // message |= (get_receiverID() << shiftcount);
@@ -86,14 +86,14 @@ uint LCAMsg::Send() const {
     // Code segfaults here
     // for (int i=0; i<get_payloadLength(); i++) {
     for (int i=0; i<9; i++) {
-        message |= ntohs( ( payload_ptr[i] << shiftcount ) );
+        message |= ( payload_ptr[i] << shiftcount );
         // std::cout << "sizeof(payload_ptr[i]*8 = " << sizeof(payload_ptr[i])*8 << std::endl;
         shiftcount += sizeof(payload_ptr[i])*8;
     }
     // std::cout << "just after segfaulting code" << std::endl;
     
     // Pack lights_camera_action
-    uint8_t lights_camera_action = htons( get_lights_camera_action() );
+    uint8_t lights_camera_action = get_lights_camera_action();
     message |= (lights_camera_action << shiftcount);
     shiftcount += sizeof(lights_camera_action)*8;
     // message |= (get_lights_camera_action() << shiftcount);
@@ -135,13 +135,13 @@ void LCAMsg::Receive(const uint message) const {
     std::cout << "step 1 shiftcount = " << shiftcount << std::endl;
 
     // Extract senderiD
-    uint8_t msg_senderID = ntohs( ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG );
+    uint8_t msg_senderID = ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG;
     shiftcount += sizeof(msg_senderID)*8;
 
     std::cout << "step 2 shiftcount = " << shiftcount << std::endl;
     
     // Extract receiverID
-    uint8_t msg_receiverID = ntohs( ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG );
+    uint8_t msg_receiverID = ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG;
     shiftcount += sizeof(msg_receiverID)*8;
 
     std::cout << "step 3 shiftcount = " << shiftcount << std::endl;
@@ -157,7 +157,7 @@ void LCAMsg::Receive(const uint message) const {
     uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*msg_payloadLength);
     // for (int i=0; i<payloadlength; i++) {
     for (int i=0; i<9; i++) {
-        msg_payload[i] = ntohs( ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG );
+        msg_payload[i] = ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG;
         shiftcount += sizeof(msg_payload[i])*8;
     }
     std::cout << "just after segfault" << std::endl;
@@ -165,7 +165,7 @@ void LCAMsg::Receive(const uint message) const {
     std::cout << "step 4 shiftcount = " << shiftcount << std::endl;
 
     // Extract lights_camera_action
-    uint8_t msg_lights_camera_action = ntohs( ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG );
+    uint8_t msg_lights_camera_action = ( msg >> (pre_shiftcount - shiftcount) ) & UINT8_FLAG;
     shiftcount += sizeof(msg_lights_camera_action)*8;
 
     std::cout << "step 5 shiftcount = " << shiftcount << std::endl;
