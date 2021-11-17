@@ -27,11 +27,11 @@ LCAMsg::~LCAMsg() { }
 
 // Getter methods
 uint8_t LCAMsg::get_lights() const {
-    return lights_camera_action & LIGHTS_FLAG;
+    return (lights_camera_action & LIGHTS_FLAG) >> 7;
 }
 
 uint8_t LCAMsg::get_camera() const {
-    return lights_camera_action & CAMERA_FLAG;
+    return (lights_camera_action & CAMERA_FLAG) >> 6;
 }
 
 uint8_t LCAMsg::get_action() const {
@@ -70,13 +70,13 @@ uint8_t * LCAMsg::Send() {
     uint8_t senderID = get_senderID();
     memcpy( message, &senderID, sizeof(uint8_t) );
     message += sizeof(uint8_t);
-    std::cout << "Sent sender                       is " << senderID << std::endl;
+    std::cout << "Sent senderID                     is " << unsigned( get_senderID() ) << std::endl;
     
     // Pack receiverID
     uint8_t receiverID = get_receiverID();
     memcpy( message, &receiverID, sizeof(uint8_t) );
     message += sizeof(uint8_t);
-    std::cout << "Sent receiverID                   is " << receiverID << std::endl;
+    std::cout << "Sent receiverID                   is " << unsigned( receiverID ) << std::endl;
     
     // Pack payloadLength
     uint32_t payloadLength = htonl( get_payloadLength() );
@@ -125,19 +125,20 @@ void LCAMsg::Receive( uint8_t * message ) {
     uint16_t msg_messageID;
     memcpy(&msg_messageID, msg, sizeof(uint16_t));
     msg += sizeof(uint16_t);
+    // std::cout << "Received msg_messageID            is " << ntohs( msg_messageID ) << std::endl;
     std::cout << "Received msg_messageID            is " << msg_messageID << std::endl;
 
     // Extract senderiD
     uint8_t msg_senderID;
     memcpy(&msg_senderID, msg, sizeof(uint8_t));
     msg += sizeof(uint8_t);
-    std::cout << "Received msg_senderID             is " << msg_senderID << std::endl;
+    std::cout << "Received msg_senderID             is " << unsigned( msg_senderID ) << std::endl;
     
     // Extract receiverID
     uint8_t msg_receiverID;
     memcpy(&msg_receiverID, msg, sizeof(uint8_t));
     msg += sizeof(uint8_t);
-    std::cout << "Received msg_receiverID           is " << msg_receiverID << std::endl;
+    std::cout << "Received msg_receiverID           is " << unsigned( msg_receiverID ) << std::endl;
     
     // Extract payloadLength
     uint32_t msg_payloadLength;
@@ -158,7 +159,7 @@ void LCAMsg::Receive( uint8_t * message ) {
     uint8_t msg_lights_camera_action;
     memcpy(&msg_lights_camera_action, msg, sizeof(uint8_t));
     msg += sizeof(uint8_t);
-    std::cout << "Received msg_lights_camera_action is " << msg_lights_camera_action << std::endl;
+    std::cout << "Received msg_lights_camera_action is " << unsigned( msg_lights_camera_action ) << std::endl;
     
     // Extract name
     uint64_t msg_name;

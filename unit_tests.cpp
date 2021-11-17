@@ -95,14 +95,14 @@ void unit_test_1() {
     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, payloadreceive, 0b11001111, 0xFFFFFFFFFFFFFFFF);
 
     std::cout << "sender messageID     is " << sender->get_messageID() << std::endl;
-    std::cout << "sender senderID      is " << sender->get_senderID() << std::endl;
-    std::cout << "sender receiverID    is " << sender->get_receiverID() << std::endl;
+    std::cout << "sender senderID      is " << unsigned( sender->get_senderID()   ) << std::endl;
+    std::cout << "sender receiverID    is " << unsigned( sender->get_receiverID() ) << std::endl;
     std::cout << "sender payloadLength is " << sender->get_payloadLength() << std::endl;
     // std::cout << "sender size          is " << sender->get_size() << std::endl;
-    std::cout << "sender lca           is " << sender->get_lights_camera_action() << std::endl;
-    std::cout << "sender lights        is " << sender->get_lights() << std::endl;
-    std::cout << "sender camera        is " << sender->get_camera() << std::endl;
-    std::cout << "sender action        is " << sender->get_action() << std::endl;
+    std::cout << "sender lca           is " << unsigned( sender->get_lights_camera_action() ) << std::endl;
+    std::cout << "sender lights        is " << unsigned( sender->get_lights() ) << std::endl;
+    std::cout << "sender camera        is " << unsigned( sender->get_camera() ) << std::endl;
+    std::cout << "sender action        is " << unsigned( sender->get_action() ) << std::endl;
 
     
     // sender->get_size();
