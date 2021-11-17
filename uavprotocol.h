@@ -42,11 +42,11 @@ class UAVProtocol {
         virtual uint8_t get_size();
 
         // A virtual Send function that returns a string containing the message to be send
-        virtual uint8_t * Send() = 0;
+        virtual uint8_t * Send() {};
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( uint8_t * message ) = 0;
+        virtual void Receive( uint8_t * message ) {};
 
 };
 

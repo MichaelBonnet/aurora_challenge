@@ -9,6 +9,7 @@
 #ifndef __LCAMSG_H
 #define __LCAMSG_H
 
+#include <cstring>
 #include <string>
 #include <iostream>
 #include <stdlib.h>
