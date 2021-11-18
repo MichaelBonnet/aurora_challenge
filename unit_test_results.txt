@@ -1,0 +1,161 @@
+
+==============================================
+=== Initialization and Access Methods Test ===
+==============================================
+
+Initalization: LCAMsg(0xFFEE, 0xFE, 0xEF, 0x9, 0b10111111, 0xFFEEDDCCBBAA9988 )
+
+Expected messageID     : 0xffee,              Actual messageID     : 0xffee
+Expected senderID      : 0xfe,                Actual senderID      : 0xfe
+Expected receiverID    : 0xef,                Actual receiverID    : 0xef
+Expected payloadLength : 0x9,                 Actual payloadLength : 0x9
+Expected lights        : 1,                   Actual lights        : 1
+Expected camera        : 0,                   Actual camera        : 0
+Expected action        : 0b00111111 (= 0x3f), Actual action        : 3f
+Expected name          : 0xffeeddccbbaa9988,  Actual name          : 0xffeeddccbbaa9988
+
+
+=================================
+=== Send() and Receive() Test ===
+=================================
+
+Sender Initialization   : LCAMsg(1, 1, 2, 9, 0b10111111, 0x5555555555555555)
+Receiver Initialization : LCAMsg(0, 0, 0, 9, 0b00000000, 0x0000000000000000) ("Blank" Object)
+Sender messageID     : 1
+Sender senderID      : 1
+Sender receiverID    : 2
+Sender lights        : 1
+Sender camera        : 0
+Sender action        : 3f
+Sender name          : 0x5555555555555555
+
+Receiver Pre-Receiving Sender Message
+
+Receiver messageID     : 0
+Receiver senderID      : 0
+Receiver receiverID    : 0
+Receiver lights        : 0
+Receiver camera        : 0
+Receiver action        : 0
+Receiver name          : 0x0
+
+Receiver Post-Receiving Sender Message
+
+Receiver messageID     : 1
+Receiver senderID      : 1
+Receiver receiverID    : 2
+Receiver lights        : 1
+Receiver camera        : 0
+Receiver action        : 3f
+Receiver name          : 0x5555555555555555
+
+*******************************************
+**** Testing Double Send/Receive Cases ****
+*******************************************
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+================================
+=== 3 Instance Chaining Test ===
+================================
+
+Instance 1 Send()ing to Instance 2 Receive()
+Instance 2 Send()ing to Instance 3 Receive()
+3 Instance Chaining Test Success
+
+*******************************************
+**** Testing Single Send/Receive Cases ****
+*******************************************
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+********************************************************
+**** Testing Max and Min Value Potential Edge Cases ****
+********************************************************
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+================================
+=== 2 Instance Equality Test ===
+================================
+
+2 Instance Equality Test Success
+
+End of main and unit tests
+
