@@ -1,3 +1,4 @@
+// REQUIREMENTS
 // Implement a C++ class using the base class above to process a message with the following payload:
 
 // Bits     Field
@@ -9,6 +10,10 @@
 #ifndef __LCAMSG_H
 #define __LCAMSG_H
 
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include <cstring>
 #include <string>
 #include <iostream>
@@ -17,6 +22,10 @@
 #include <stdio.h>
 #include <arpa/inet.h>
 #include "uavprotocol.h"
+
+// ============= //
+// === FLAGS === //
+// ============= //
 
 #define LIGHTS_FLAG 0b10000000 // 1000 0000
 #define CAMERA_FLAG 0b01000000 // 0100 0000
@@ -27,9 +36,15 @@
 #define UINT32_FLAG 0xFFFFFFFF
 #define UINT64_FLAG 0xFFFFFFFFFFFFFFFF
 
+// ==================== //
+// === DECLARATIONS === //
+// ==================== //
+
 // The class should have the following features:
 
 // Inherits the base class in Problem #1 (UAVProtocol)
+class LCAMsg;
+
 class LCAMsg : public UAVProtocol {
     private:
         // Initialization of all payload fields
@@ -42,7 +57,7 @@ class LCAMsg : public UAVProtocol {
     public:
         // Semi Rule of 3
         LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t lights_camera_action, uint64_t name );
-        LCAMsg( const LCAMsg &obj );
+        LCAMsg( LCAMsg &obj );
         ~LCAMsg();
 
         // Access method for each and every payload field
@@ -52,7 +67,11 @@ class LCAMsg : public UAVProtocol {
         uint8_t  get_lights_camera_action() const;
         uint64_t get_name()   const;
 
-        // size getter to define mallocing in send/receive
+        // Setters
+        void set_lights_camera_action(uint8_t lca_value);
+        void set_name(uint64_t name_value);
+
+        // Maybe size getter to aid in proper malloc'ing in send/receive?
         // uint8_t get_size();
 
         // creates payload from the given derived class parameters
@@ -63,7 +82,7 @@ class LCAMsg : public UAVProtocol {
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive( uint8_t * message ) const;
+        void Receive( uint8_t * message );
 };
 
 #endif

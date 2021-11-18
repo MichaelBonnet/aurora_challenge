@@ -10,8 +10,16 @@
 #ifndef __UAVPROTOCOL_H
 #define __UAVPROTOCOL_H
 
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include <string>
 #include <iostream>
+
+// ==================== //
+// === DECLARATIONS === //
+// ==================== //
 
 // Implement a C++ class that can be used as the base class to develop specific messages later.
 // This class should have the following features:
@@ -30,7 +38,7 @@ class UAVProtocol {
     public:
         // Rule of 3
         UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength );
-        UAVProtocol( const UAVProtocol &obj);
+        UAVProtocol( UAVProtocol &obj);
         virtual ~UAVProtocol();
 
         // Access methods for each and every common field
@@ -40,6 +48,13 @@ class UAVProtocol {
         uint32_t  get_payloadLength() const;
         uint8_t * get_payload()       const;
 
+        // Setters
+        void set_messageID(uint16_t messageID_value);
+        void set_senderID(uint8_t senderID_value);
+        void set_receiverID(uint8_t receiverID_value);
+        void set_payloadLength(uint32_t payloadLength_value);
+        void set_payload(uint8_t * payload_ptr);
+
         // virtual size getter to define mallocing in send/receive
         // virtual uint8_t get_size();
 
@@ -48,7 +63,7 @@ class UAVProtocol {
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( uint8_t * message ) const = 0;
+        virtual void Receive( uint8_t * message ) = 0;
 };
 
 #endif
