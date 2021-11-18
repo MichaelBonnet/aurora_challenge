@@ -53,3 +53,27 @@ void unit_test_3() {
 
     receiver->Receive( sender->Send() );
 }
+
+void unit_test_4() {
+    
+    std::cout << "\n" << "===========================" << std::endl;
+    std::cout <<         "======= UNIT TEST 4 =======" << std::endl;
+    std::cout <<         "===========================" << "\n" << std::endl;
+
+}
+
+void unit_test_5() {
+    
+    std::cout << "\n" << "===========================" << std::endl;
+    std::cout <<         "======= UNIT TEST 5 =======" << std::endl;
+    std::cout <<         "===========================" << "\n" << std::endl;
+    
+}
+
+void unit_test_6() {
+    
+    std::cout << "\n" << "===========================" << std::endl;
+    std::cout <<         "======= UNIT TEST 6 =======" << std::endl;
+    std::cout <<         "===========================" << "\n" << std::endl;
+    
+}
