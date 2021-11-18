@@ -52,7 +52,11 @@ class LCAMsg : public UAVProtocol {
         uint8_t  get_lights_camera_action() const;
         uint64_t get_name()   const;
 
-        // size getter to define mallocing in send/receive
+        // Setters
+        void set_lights_camera_action(uint8_t lca_value);
+        void set_name(uint64_t name_value);
+
+        // Maybe size getter to aid in proper malloc'ing in send/receive?
         // uint8_t get_size();
 
         // creates payload from the given derived class parameters
@@ -63,7 +67,7 @@ class LCAMsg : public UAVProtocol {
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive( uint8_t * message ) const;
+        void Receive( uint8_t * message );
 };
 
 #endif

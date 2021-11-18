@@ -33,6 +33,26 @@ uint8_t * UAVProtocol::get_payload() const {
     return payload;  // keep in mind this is a pointer
 }
 
+void UAVProtocol::set_messageID(uint16_t messageID_value) {
+    messageID = messageID_value;
+}
+
+void UAVProtocol::set_senderID(uint8_t senderID_value) {
+    senderID = senderID_value;
+}
+
+void UAVProtocol::set_receiverID(uint8_t receiverID_value) {
+    receiverID = receiverID_value;
+}
+
+void UAVProtocol::set_payloadLength(uint32_t payloadLength_value) {
+    payloadLength = payloadLength_value;
+}
+
+void UAVProtocol::set_payload(uint8_t * payload_ptr) {
+    payload = payload_ptr;
+}
+
 // uint8_t UAVProtocol::get_size() {
 //     uint8_t size = sizeof( get_payloadLength() ) + 
 //                    sizeof( get_messageID()     ) + 
@@ -42,3 +62,7 @@ uint8_t * UAVProtocol::get_payload() const {
 //     std::cout << "size is " << size << std::endl;
 //     return size;
 // }
+
+// uint8_t * Send() {};
+
+// void Receive( uint8_t * message ) {};
