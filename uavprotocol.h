@@ -23,11 +23,13 @@ class UAVProtocol {
         uint8_t   senderID;
         uint8_t   receiverID;
         uint32_t  payloadLength;
+
+    protected:
         uint8_t * payload;
 
     public:
         // Rule of 3
-        UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength, uint8_t * payload );
+        UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength );
         UAVProtocol( const UAVProtocol &obj);
         virtual ~UAVProtocol();
 
@@ -39,15 +41,14 @@ class UAVProtocol {
         uint8_t * get_payload()       const;
 
         // virtual size getter to define mallocing in send/receive
-        virtual uint8_t get_size();
+        // virtual uint8_t get_size();
 
         // A virtual Send function that returns a string containing the message to be send
-        virtual uint8_t * Send() {};
+        virtual uint8_t * Send() const = 0;
         
         // Virtual Receive function that accepts a string containing th message received,
         // and populates the values of the common fields
-        virtual void Receive( uint8_t * message ) {};
-
+        virtual void Receive( uint8_t * message ) const = 0;
 };
 
 #endif

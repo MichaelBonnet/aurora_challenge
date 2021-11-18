@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <bitset>
 
-// Creates a payload from an 8-bit lights_camera_action word and a 64-bit name.
-uint8_t* create_lca_payload(uint8_t lights_camera_action, uint64_t name);
-
 // 
 void unit_test_0();
 
