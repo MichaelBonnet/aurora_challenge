@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <arpa/inet.h>
 #include "uavprotocol.h"
 
 #define LIGHTS_FLAG 0b10000000 // 1000 0000
@@ -34,14 +35,13 @@ class LCAMsg : public UAVProtocol {
         // Initialization of all payload fields
         // Bit 7   is lights
         // Bit 6   is camera
-        // Bit 0-5 is Action
+        // Bit 0-5 is action
         uint8_t  lights_camera_action;
         uint64_t name;
 
     public:
         // Semi Rule of 3
-        // LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name ) : UAVProtocol( messageID, senderID, receiverID, payloadLength, payload );
-        LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t * payload, uint8_t lights_camera_action, uint64_t name );
+        LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t lights_camera_action, uint64_t name );
         LCAMsg( const LCAMsg &obj );
         ~LCAMsg();
 
@@ -55,12 +55,15 @@ class LCAMsg : public UAVProtocol {
         // size getter to define mallocing in send/receive
         // uint8_t get_size();
 
+        // creates payload from the given derived class parameters
+        void create_lca_payload(uint8_t lights_camera_action, uint64_t name);
+
         // A Send function that returns a string containing the message to be sent
-        uint8_t * Send();
+        uint8_t * Send() const;
 
         // A Receive function that accepts a string containing the message received,
         // and populate the values of the payload fields
-        void Receive( uint8_t * message );
+        void Receive( uint8_t * message ) const;
 };
 
 #endif

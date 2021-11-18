@@ -3,9 +3,7 @@
 #include "unit_tests.h"
 
 // TO DO
-// Resolve segfaulting due to weird get_payload() things going on
-// Network byte order everything
-// for reference: https://www.tutorialspoint.com/unix_sockets/network_byte_orders.htm
+// Write Unit Tests
 
 // Please assume that:
 // - All messages are sent and received as a stream of binary data,
@@ -15,11 +13,20 @@
 //      The code should be agnostic to endianness.
 
 int main(int argc, char const *argv[]) {
-    // unit_test_0();
+
+    // Explanation
     unit_test_1();
-    // unit_test_2();
-    // unit_test_3();
+    
+    // Explanation
+    unit_test_2();
+    
+    // Explanation
+    unit_test_3();
+    
+    // Explanation
     // unit_test_4();
+    
+    // Explanation
     // unit_test_5();
 
     // unit_test_2();
