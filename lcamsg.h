@@ -1,3 +1,4 @@
+// REQUIREMENTS
 // Implement a C++ class using the base class above to process a message with the following payload:
 
 // Bits     Field
@@ -9,6 +10,10 @@
 #ifndef __LCAMSG_H
 #define __LCAMSG_H
 
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include <cstring>
 #include <string>
 #include <iostream>
@@ -18,6 +23,10 @@
 #include <arpa/inet.h>
 #include "uavprotocol.h"
 
+// ============= //
+// === FLAGS === //
+// ============= //
+
 #define LIGHTS_FLAG 0b10000000 // 1000 0000
 #define CAMERA_FLAG 0b01000000 // 0100 0000
 #define ACTION_FLAG 0b00111111 // 0011 1111
@@ -26,6 +35,10 @@
 #define UINT16_FLAG 0xFFFF
 #define UINT32_FLAG 0xFFFFFFFF
 #define UINT64_FLAG 0xFFFFFFFFFFFFFFFF
+
+// ==================== //
+// === DECLARATIONS === //
+// ==================== //
 
 // The class should have the following features:
 

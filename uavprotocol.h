@@ -10,8 +10,16 @@
 #ifndef __UAVPROTOCOL_H
 #define __UAVPROTOCOL_H
 
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include <string>
 #include <iostream>
+
+// ==================== //
+// === DECLARATIONS === //
+// ==================== //
 
 // Implement a C++ class that can be used as the base class to develop specific messages later.
 // This class should have the following features:

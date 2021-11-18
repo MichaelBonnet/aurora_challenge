@@ -1,34 +1,21 @@
-#include "unit_tests.h"
-// #include "uavprotocol.h"
-#include "lcamsg.h"
-
 // TO DO
 // Write Unit Tests
 
+// REQUIREMENTS
 // Write a unit test framework to verify your implementation above.
 // Use your engineering judgment on the scope of your test cases.
 // A text print-out should be produced for the result of each test case.
 
-// void unit_test_1() {
-    
-//     std::cout << "\n" << "===========================" << std::endl;
-//     std::cout <<         "======= UNIT TEST 1 =======" << std::endl;
-//     std::cout <<         "===========================" << "\n" << std::endl;
+// ================ //
+// === INCLUDES === //
+// ================ //
 
-//     LCAMsg *sender   = new LCAMsg(1, 1, 2, 9, 0b11001111, 0xFFFFFFFFFFFFFFFF);
-//     LCAMsg *receiver = new LCAMsg(1, 1, 2, 9, 0b11001111, 0xFFFFFFFFFFFFFFFF);
+#include "unit_tests.h"
+#include "lcamsg.h"
 
-//     std::cout << "sender messageID     is " << sender->get_messageID() << std::endl;
-//     std::cout << "sender senderID      is " << unsigned( sender->get_senderID()   ) << std::endl;
-//     std::cout << "sender receiverID    is " << unsigned( sender->get_receiverID() ) << std::endl;
-//     std::cout << "sender payloadLength is " << sender->get_payloadLength() << std::endl;
-//     std::cout << "sender lca           is " << unsigned( sender->get_lights_camera_action() ) << std::endl;
-//     std::cout << "sender lights        is " << unsigned( sender->get_lights() ) << std::endl;
-//     std::cout << "sender camera        is " << unsigned( sender->get_camera() ) << std::endl;
-//     std::cout << "sender action        is " << unsigned( sender->get_action() ) << std::endl;
-
-//     receiver->Receive( sender->Send() );
-// }
+// ============================= //
+// === UNIT TEST DEFINITIONS === //
+// ============================= //
 
 void unit_test_0() {
 

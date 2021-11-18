@@ -1,7 +1,12 @@
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include "lcamsg.h"
 
-// TO DO
-// Write Unit Tests
+// =================== //
+// === DEFINITIONS === //
+// =================== //
 
 // Default Constructor
 LCAMsg::LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t lights_camera_action, uint64_t name ) : 

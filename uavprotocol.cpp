@@ -1,4 +1,12 @@
+// ================ //
+// === INCLUDES === //
+// ================ //
+
 #include "uavprotocol.h"
+
+// =================== //
+// === DEFINITIONS === //
+// =================== //
 
 // Constructor
 UAVProtocol::UAVProtocol( uint16_t messageID, uint8_t senderID, uint8_t  receiverID, uint32_t  payloadLength ) : 
@@ -32,6 +40,8 @@ uint32_t UAVProtocol::get_payloadLength() const {
 uint8_t * UAVProtocol::get_payload() const {
     return payload;  // keep in mind this is a pointer
 }
+
+// Setter methods
 
 void UAVProtocol::set_messageID(uint16_t messageID_value) {
     messageID = messageID_value;
