@@ -72,32 +72,32 @@ void unit_test_1() {
     std::cout << "Receiver Initialization : LCAMsg(0, 0, 0, 9, 0b00000000, 0x0000000000000000) (\"Blank\" Object)" << std::endl;
 
     std::cout << "Sender messageID     : " << sender->get_messageID() << std::endl;
-    std::cout << "Sender senderID      : " << sender->get_senderID() << std::endl;
-    std::cout << "Sender receiverID    : " << sender->get_receiverID() << std::endl;
-    std::cout << "Sender lights        : " << sender->get_lights() << std::endl;
-    std::cout << "Sender camera        : " << sender->get_camera() << std::endl;
-    std::cout << "Sender action        : " << sender->get_action() << std::endl;
-    std::cout << "Sender name          : " << sender->get_name() << std::endl;
+    std::cout << "Sender senderID      : " << unsigned( sender->get_senderID() ) << std::endl;
+    std::cout << "Sender receiverID    : " << unsigned( sender->get_receiverID() ) << std::endl;
+    std::cout << "Sender lights        : " << unsigned( sender->get_lights() ) << std::endl;
+    std::cout << "Sender camera        : " << unsigned( sender->get_camera() ) << std::endl;
+    std::cout << "Sender action        : " << unsigned( sender->get_action() ) << std::endl;
+    std::cout << "Sender name          : " << "0x" << std::hex << sender->get_name() << std::endl << std::endl;
 
     std::cout << "Receiver Pre-Receiving Sender Message" << std::endl << std::endl;
     std::cout << "Receiver messageID     : " << receiver->get_messageID() << std::endl;
-    std::cout << "Receiver senderID      : " << receiver->get_senderID() << std::endl;
-    std::cout << "Receiver receiverID    : " << receiver->get_receiverID() << std::endl;
-    std::cout << "Receiver lights        : " << receiver->get_lights() << std::endl;
-    std::cout << "Receiver camera        : " << receiver->get_camera() << std::endl;
-    std::cout << "Receiver action        : " << receiver->get_action() << std::endl;
-    std::cout << "Receiver name          : " << receiver->get_name() << std::endl;
+    std::cout << "Receiver senderID      : " << unsigned( receiver->get_senderID() ) << std::endl;
+    std::cout << "Receiver receiverID    : " << unsigned( receiver->get_receiverID() ) << std::endl;
+    std::cout << "Receiver lights        : " << unsigned( receiver->get_lights() ) << std::endl;
+    std::cout << "Receiver camera        : " << unsigned( receiver->get_camera() ) << std::endl;
+    std::cout << "Receiver action        : " << unsigned( receiver->get_action() ) << std::endl;
+    std::cout << "Receiver name          : " << "0x" << std::hex << receiver->get_name() << std::endl << std::endl;
 
     receiver->Receive( sender->Send() );
 
     std::cout << "Receiver Post-Receiving Sender Message" << std::endl << std::endl;
     std::cout << "Receiver messageID     : " << receiver->get_messageID() << std::endl;
-    std::cout << "Receiver senderID      : " << receiver->get_senderID() << std::endl;
-    std::cout << "Receiver receiverID    : " << receiver->get_receiverID() << std::endl;
-    std::cout << "Receiver lights        : " << receiver->get_lights() << std::endl;
-    std::cout << "Receiver camera        : " << receiver->get_camera() << std::endl;
-    std::cout << "Receiver action        : " << receiver->get_action() << std::endl;
-    std::cout << "Receiver name          : " << receiver->get_name() << std::endl;
+    std::cout << "Receiver senderID      : " << unsigned( receiver->get_senderID() ) << std::endl;
+    std::cout << "Receiver receiverID    : " << unsigned( receiver->get_receiverID() ) << std::endl;
+    std::cout << "Receiver lights        : " << unsigned( receiver->get_lights() ) << std::endl;
+    std::cout << "Receiver camera        : " << unsigned( receiver->get_camera() ) << std::endl;
+    std::cout << "Receiver action        : " << unsigned( receiver->get_action() ) << std::endl;
+    std::cout << "Receiver name          : " << "0x" << std::hex << receiver->get_name() << std::endl;
 
 }
 

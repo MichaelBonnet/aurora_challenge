@@ -156,14 +156,13 @@ void LCAMsg::Receive( uint8_t * message ) {
 
     // Extract payload
     uint8_t * msg_payload = (uint8_t*) malloc(sizeof(uint8_t)*9);
+    uint8_t * payload_ptr = msg_payload;
     for (int i=0; i<msg_payloadLength; i++) {
         memcpy(&msg_payload[i], msg, sizeof(uint8_t));
         msg += sizeof(uint8_t);
     }
 
     // Extract lights_camera_action
-    uint8_t * payload_ptr = msg_payload;
-
     uint8_t msg_lights_camera_action;
     memcpy(&msg_lights_camera_action, msg_payload, sizeof(uint8_t));
     msg_payload += sizeof(uint8_t);
@@ -172,11 +171,19 @@ void LCAMsg::Receive( uint8_t * message ) {
     // Extract name
     uint64_t msg_name;
     memcpy(&msg_name, msg_payload, sizeof(uint64_t));
-    msg_payload += sizeof(uint64_t);
+    // msg_payload += sizeof(uint64_t);
     // std::cout << "Received msg_name                 is " << ntohll( msg_name ) << std::endl;
 
     // Create new instance out of the info we've extracted
     // LCAMsg * msg_ = new LCAMsg(msg_messageID, msg_senderID, msg_receiverID, msg_payloadLength, msg_lights_camera_action, msg_name);
+
+    set_messageID( msg_messageID );
+    set_senderID( msg_senderID );
+    set_receiverID( msg_receiverID );
+    set_payloadLength( msg_payloadLength );
+    set_payload( msg_payload );
+    set_lights_camera_action( msg_lights_camera_action );
+    set_name( msg_name );
 
     // msg_->Send();
     // this->Send();
