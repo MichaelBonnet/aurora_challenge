@@ -43,6 +43,8 @@
 // The class should have the following features:
 
 // Inherits the base class in Problem #1 (UAVProtocol)
+class LCAMsg;
+
 class LCAMsg : public UAVProtocol {
     private:
         // Initialization of all payload fields
@@ -55,7 +57,7 @@ class LCAMsg : public UAVProtocol {
     public:
         // Semi Rule of 3
         LCAMsg( uint16_t messageID, uint8_t senderID, uint8_t receiverID, uint32_t payloadLength, uint8_t lights_camera_action, uint64_t name );
-        LCAMsg( const LCAMsg &obj );
+        LCAMsg( LCAMsg &obj );
         ~LCAMsg();
 
         // Access method for each and every payload field
